@@ -1,33 +1,39 @@
 .App {
   text-align: center;
 }
-.card{
+
+.card {
   background-color: #242424 !important;
 }
-.card-content{
+
+.card-content {
   width: 50%;
-    margin: auto;
+  margin: auto;
 
 }
-.baground-color{
+
+.baground-color {
   background-color: #121212;
   text-align: center;
 }
 
-.tab-section{
+.tab-section {
   text-align: center;
   display: inline-block;
   width: 60%;
 }
-.tab-section ul{
-  display: inline-block; 
+
+.tab-section ul {
+  display: inline-block;
   background: #000;
-    border-radius: 50px;
+  border-radius: 50px;
 }
-.tab-section ul li a{
+
+.tab-section ul li a {
   color: #fff;
   font-size: 16px;
 }
+
 .form-group .label-floating {
   text-align: center;
   display: inline-block;
@@ -36,23 +42,29 @@
   font-weight: 400;
   font-size: 26px;
 }
+
 .form-display input {
   border: 2px solid #10ff8d !important;
-    border-radius: 50px !important;
-    padding: 0 10px;
-    background-image: none !important;
+  border-radius: 50px !important;
+  padding: 0 10px;
+  background-image: none !important;
 }
-.label-input{
+
+.label-input {
   padding: 5px 12px;
   text-align: left;
 }
-.input-textbox{
+
+.input-textbox {
   margin: 20px 0;
 }
-label a, label a:hover{
+
+label a,
+label a:hover {
   color: #10ff8d;
 }
-.input-textbox button{
+
+.input-textbox button {
   background-color: #10ff8d;
   font-size: 18px;
   text-transform: uppercase;
@@ -60,26 +72,53 @@ label a, label a:hover{
   border-radius: 50px;
   width: 60%;
 }
-.nav-pills.nav-pills-info > li.active > a, .nav-pills.nav-pills-info > li.active > a:focus, .nav-pills.nav-pills-info > li.active > a:hover{
+
+.nav-pills.nav-pills-info>li.active>a,
+.nav-pills.nav-pills-info>li.active>a:focus,
+.nav-pills.nav-pills-info>li.active>a:hover {
   background-color: #10ff8d;
-    box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(16 255 141 / 49%);
-    color: #000;
+  box-shadow: 0 4px 20px 0px rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(16 255 141 / 49%);
+  color: #000;
 }
-.nav-pills > li > a:hover {
+
+.nav-pills>li>a:hover {
   background-color: unset;
 }
-.nav>li{
+
+.nav>li {
   padding: 3px;
 }
-table{
+
+table {
   width: 100%;
   text-align: center;
 }
-table td, table th{
+
+table td,
+table th {
   height: 30px;
   text-align: center;
 }
-.add-candidate{
+
+.add-candidate {
   float: right;
   margin-bottom: 15px;
+}
+
+.buttonDesign button {
+  margin: 10px 5px;
+}
+
+.radioButtons {
+  width: 50%;
+  display: flex;
+  float: left;
+  padding: 10px;
+}
+
+select {
+  border: 2px solid #10ff8d !important;
+  border-radius: 50px !important;
+  padding: 0 10px;
+  background-image: none !important;
 }

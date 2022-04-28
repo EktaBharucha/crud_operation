@@ -3,18 +3,14 @@ import React, { useEffect, useState } from 'react';
 import serialize from 'form-serialize';
 import { Modal } from 'react-responsive-modal';
 import "react-responsive-modal/styles.css";
-
-
-import axios from 'axios'
+import axios from 'axios';
+import swal from 'sweetalert';
 
 const token = "d1cad3240d56968ec685e35fd78cdfdac206d49ec50c3eb1a4806231d0a2de20";
 const passURL = "https://gorest.co.in/public/v2/users/";
-
-
 const config = {
   headers: { Authorization: `Bearer ${token}` }
 };
-
 
 function App() {
   const [responseData, setResponseData] = useState([]);
@@ -24,33 +20,33 @@ function App() {
   const [statusValue, setStatusValue] = useState("active");
   const [editObject, setEditObject] = useState({});
 
-  useEffect(() => {
+  useEffect(() => { getData(); }, [])
 
-    getData()
-
-  }, [])
-
+  // to open add data modal
   const onModalOpen = () => {
     setIsModalOpen(true);
   }
 
+  // to close add data modal
   const onModalClose = () => {
     setIsModalOpen(false);
   }
+
+  // to open edit data modal
   const onEditModalOpen = (item) => {
-    
-    console.log("id", item)
     setGender(item.gender);
     setStatusValue(item.status);
     setEditObject(item);
     setIsEditModalOpen(true);
   }
 
+  // to close edit data modal
   const onEditModalClose = () => {
     setIsEditModalOpen(false);
     setEditObject({});
   }
 
+  // get the data to the API
   const getData = (e) => {
 
     axios.get(passURL, config).then((response) => {
@@ -68,6 +64,7 @@ function App() {
 
   }
 
+  // add data
   const handleSubmit = (e) => {
 
     e.preventDefault();
@@ -91,6 +88,7 @@ function App() {
 
   }
 
+  // handle radio button click event and change state
   const handleRadioInputClick = (e) => {
     setGender(e.target.value);
   }
@@ -98,24 +96,42 @@ function App() {
     setStatusValue(e);
   }
 
+  // delete data
   const deleteData = (id) => {
-    console.log("id", id);
 
-    let urlToDelete = passURL + id;
-    axios.delete(urlToDelete, config).then((response) => {
+		let tempButtons = {
+			Cancel: { text: "Cancel", value: "cancel" },
+			Enable: { text: "Enable", value: "enable" }
+		}
 
-      getData();
-      onModalClose();
+    swal({
+      title: "Are you sure you want to delete this data?",
+      icon: "warning",
+      buttons: tempButtons,
+      closeOnClickOutside: false
 
-    }).catch((error) => {
+    }).then((result) => {
 
-      console.log("An error while Deleteing the Data");
-      console.log(error);
+      if (result === "enable") {
+        let urlToDelete = passURL + id;
+        axios.delete(urlToDelete, config).then((response) => {
 
-    });
+          getData();
+          onModalClose();
+
+        }).catch((error) => {
+
+          console.log("An error while Deleteing the Data");
+          console.log(error);
+
+        });
+
+      }
+    })
 
   }
 
+  // update data
   const updateData = (e) => {
 
     e.preventDefault();
@@ -169,9 +185,9 @@ function App() {
                     <td>{item.gender}</td>
                     <td>{item.status}</td>
                     <td>
-                      <div>
-                        <button onClick={() => deleteData(item.id)}>Delete</button>
-                        <button onClick={() => onEditModalOpen(item)}>Edit</button>
+                      <div className='buttonDesign'>
+                        <button className='btn btn-danger' onClick={() => deleteData(item.id)}>Delete</button>
+                        <button className='btn btn-success' onClick={() => onEditModalOpen(item)}>Edit</button>
                       </div>
                     </td>
                   </tr>
@@ -223,7 +239,7 @@ function App() {
                   </div>
                   <div className='input-textbox'>
                     <div className='label-input'>Status *</div>
-                    <select name="status" value={statusValue} onChange={(e) => resetStatusValue(e.target.value)}>
+                    <select name="status" className='form-control' value={statusValue} onChange={(e) => resetStatusValue(e.target.value)}>
                       <option key="active" value="active">Active</option>
                       <option key="inactive" value="inactive">Inactive</option>
                     </select>
@@ -231,7 +247,7 @@ function App() {
                   <div className='text-center'>
                     <div className='input-textbox'>
                       <button className="btn">
-                        Add
+                        Add Data
                       </button>
                     </div>
                   </div>
@@ -266,7 +282,7 @@ function App() {
                 <div className='form-display'>
                   <div className='input-textbox'>
                     <div className='label-input'>Name *</div>
-                    <input type="text" placeholder='Name' className="form-control" id="firstName" name="name" defaultValue={editObject.name}/>
+                    <input type="text" placeholder='Name' className="form-control" id="firstName" name="name" defaultValue={editObject.name} />
                   </div>
                   <div className='input-textbox'>
                     <div className='label-input'>Email *</div>
@@ -284,7 +300,7 @@ function App() {
                   </div>
                   <div className='input-textbox'>
                     <div className='label-input'>Status *</div>
-                    <select name="status" value={statusValue} onChange={(e) => resetStatusValue(e.target.value)}>
+                    <select name="status" className='form-control' value={statusValue} onChange={(e) => resetStatusValue(e.target.value)}>
                       <option key="active" value="active">Active</option>
                       <option key="inactive" value="inactive">Inactive</option>
                     </select>
@@ -292,7 +308,7 @@ function App() {
                   <div className='text-center'>
                     <div className='input-textbox'>
                       <button className="btn">
-                        Add
+                        Edit Data
                       </button>
                     </div>
                   </div>
